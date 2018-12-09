@@ -10,7 +10,15 @@ jobs:
 
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - v2-php-vendor-{{ checksum "composer.lock" }}
+            - v2-php-vendor-
       - run: composer install
+      - save_cache:
+          key: v2-php-vendor-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
       - run: mkdir ~/reports
       - run: vendor/bin/phpunit --log-junit ~/reports/phpunit.xml
       - store-test-results:
