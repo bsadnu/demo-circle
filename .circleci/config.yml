@@ -44,7 +44,7 @@ jobs:
           key: v1-front-vendor-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
-      - run: npm/run/scss
+      - run: npm run scss
 
   security-check:
     docker:
