@@ -11,4 +11,7 @@ jobs:
     steps:
       - checkout
       - run: composer install
-      - run: vendor/bin/phpunit
+      - run: mkdir ~/reports
+      - run: vendor/bin/phpunit --log-junit ~/reports/phpunit.xml
+      - store-test-results:
+          path: ~/reports
