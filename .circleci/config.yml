@@ -57,3 +57,5 @@ workflows:
           filters:
             branches:
               only: master
+    jobs:
+      - security-check
