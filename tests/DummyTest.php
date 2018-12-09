@@ -11,6 +11,6 @@ class DummyTest extends TestCase
     {
         $dummy = new Dummy();
 
-        $this->assertTrue($dummy->isHappy());
+        $this->assertFalse($dummy->isHappy());
     }
 }
