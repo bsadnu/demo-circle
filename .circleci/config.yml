@@ -53,7 +53,7 @@ workflows:
   security-check:
     triggers:
       - schedule:
-          cron: "33 12 * * *"
+          cron: "33 13 * * *"
           filters:
             branches:
               only: master
