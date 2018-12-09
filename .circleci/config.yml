@@ -15,3 +15,7 @@ jobs:
       - run: vendor/bin/phpunit --log-junit ~/reports/phpunit.xml
       - store-test-results:
           path: ~/reports
+      - run: mkdir ~/outputs
+      - run: echo "this is a log message" > ~/outputs/message.log
+      - store-artifacts:
+          path: ~/outputs
