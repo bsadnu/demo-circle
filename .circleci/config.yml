@@ -68,6 +68,7 @@ workflows:
   commit:
     jobs:
       - build
+      - build-npm
       - security-check
   security-check:
     triggers:
