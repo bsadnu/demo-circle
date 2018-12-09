@@ -19,6 +19,7 @@ jobs:
           key: v2-php-vendor-{{ checksum "composer.lock" }}
           paths:
             - vendor
+      - run: vendor/bin/parallel-lint src tests
       - run: mkdir ~/reports
       - run: vendor/bin/phpunit --log-junit ~/reports/phpunit.xml
       - store-test-results:
@@ -27,3 +28,19 @@ jobs:
       - run: echo "this is a log message" > ~/outputs/message.log
       - store-artifacts:
           path: ~/outputs
+  security-check:
+    docker:
+      - image: circleci/php:7.1-apache-stretch-browsers
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-php-vendor-{{ checksum "composer.lock" }}
+            - v2-php-vendor-
+      - run: composer install
+      - save_cache:
+          key: v2-php-vendor-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      - run: vendor/bin/security-checker security:check
