@@ -28,6 +28,24 @@ jobs:
       - run: echo "this is a log message" > ~/outputs/message.log
       - store-artifacts:
           path: ~/outputs
+
+  build-npm:
+    docker:
+      - image: circleci/node:9
+
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-front-vendor-{{ checksum "package-lock.json" }}
+            - v1-front-vendor-
+      - run: npm install
+      - save_cache:
+          key: v1-front-vendor-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+      - run: npm/run/scss
+
   security-check:
     docker:
       - image: circleci/php:7.1-apache-stretch-browsers
